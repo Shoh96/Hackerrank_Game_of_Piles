@@ -1,25 +1,36 @@
-def gameOfPiles(piles, k):
-    """
-    Determines the winner of the game of piles.
-    Args:
-        piles (list): An array of integers, where piles[i] represents the number of stones in the i-th pile.
-        k (int): An integer representing the multiplier for the number of stones that can be removed.
-    Returns:
-        str: A string indicating the winner of the game.
-    """
-    # Determine the total number of stones in all the piles
-    total_stones = sum(piles)
+import numpy as np
+import argparse
+from typing import List
+
+def gameOfPiles(piles: List[int], k: int) -> str:
+    n = len(piles)
+    piles = np.array(piles)
+    turn = 0
     
-    # Check if the total number of stones is divisible by k
-    if total_stones % k == 0:
-        # If so, Alex wins
-        return "Alex wins the game of {} pile(s).".format(len(piles))
-    else:
-        # Otherwise, Sam wins
-        return "Sam wins the game of {} pile(s).".format(len(piles))
-
-
-# Example usage
-piles = [3, 5, 7]
-k = 2
-print(gameOfPiles(piles, k))  # Output: Sam wins the game of 3 pile(s).
+    while True:
+        if np.count_nonzero(piles) == 0:
+            if turn == 0:
+                return f"Alex wins the game of {n} pile(s)."
+            else:
+                return f"Sam wins the game of {n} pile(s)."
+        
+        if turn == 0:
+            idx = np.where(piles % k == 0)[0]
+            if len(idx) == 0:
+                idx = np.where(piles > k)[0]
+            if len(idx) == 0:
+                idx = np.where(piles > 0)[0]
+            pile = np.random.choice(idx)
+            remove = piles[pile] // k * k if piles[pile] >= k else np.random.randint(1, piles[pile]+1)
+            piles[pile] -= remove
+            turn = 1
+        else:
+            idx = np.where(piles % k == 0)[0]
+            if len(idx) == 0:
+                idx = np.where(piles > k)[0]
+            if len(idx) == 0:
+                idx = np.where(piles > 0)[0]
+            pile = np.random.choice(idx)
+            remove = piles[pile] // k * k if piles[pile] >= k else np.random.randint(1, piles[pile]+1)
+            piles[pile] -= remove
+            turn = 0
