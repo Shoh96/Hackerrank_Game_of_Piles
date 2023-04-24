@@ -20,22 +20,36 @@ Game of Piles is a two-player game where the players take turns removing stones 
    ```
    pip install -r requirements.txt
    ```
-
-### Usage
-
-1. Run the main script:
-
-   ```
-   python game_of_piles.py
-   ```
    
-2. Follow the prompts to enter the number of piles, the number of stones in each pile, and the value of k.
+## Usage
 
-3. The script will determine the winner of the game and display the result.
+The game can be played by running the `game_of_piles.py` file in the terminal:
 
-### License
+```bash
+python game_of_piles.py
+```
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+The game will ask for the number of piles, the number of stones in each pile, and the value of k.
+
+The output will be either "Sam wins the game of n pile(s)." or "Alex wins the game of n pile(s).", where n is the number of piles in the input.
+
+## Testing
+
+To run the test cases, install `pytest`:
+
+```bash
+pip install pytest
+```
+
+Then, run the following command in the terminal:
+
+```bash
+pytest test_game_of_piles.py
+```
+
+## License
+
+This project is licensed under the [MIT license](https://github.com/<username>/game-of-piles/blob/main/LICENSE).
 
 ## Contributing
 
